@@ -1,0 +1,20 @@
+{
+	"FileVersion" : 3,
+	
+	"FriendlyName" : "OpenGEX Importer",
+	"Version" : 1,
+	"VersionName" : "1.0",
+	"CreatedBy" : "Henry Read",
+	"EngineVersion" : "4.10",
+	"Description" : "An importer for OpenGEX (GEX) files.",
+	"CategoryPath" : "Editor",
+	"EnabledByDefault" : true,
+	
+	"Modules" :
+	[
+		{
+			"Name" : "OpenGEXImporter",
+			"Type" : "Editor"
+		}
+	]
+}
