@@ -1,5 +1,3 @@
-// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 
 #include "ModuleInterface.h"
@@ -8,19 +6,19 @@
 /**
  * The public interface of the SpeedTreeImporter module
  */
-class ISpeedTreeImporter : public IModuleInterface
+class IOpenGEXImporter : public IModuleInterface
 {
 
 public:
 
 	/**
-	 * Singleton-like access to ISpeedTreeImporter
+	 * Singleton-like access to IOpenGEXImporter
 	 *
-	 * @return Returns SpeedTreeImporter singleton instance, loading the module on demand if needed
+	 * @return Returns OpenGEXImporter singleton instance, loading the module on demand if needed
 	 */
-	static inline ISpeedTreeImporter& Get()
+	static inline IOpenGEXImporter& Get()
 	{
-		return FModuleManager::LoadModuleChecked<ISpeedTreeImporter>("SpeedTreeImporter");
+		return FModuleManager::LoadModuleChecked<IOpenGEXImporter>("OpenGEXImporter");
 	}
 
 	/**
@@ -30,7 +28,7 @@ public:
 	 */
 	static inline bool IsAvailable()
 	{
-		return FModuleManager::Get().IsModuleLoaded("SpeedTreeImporter");
+		return FModuleManager::Get().IsModuleLoaded("OpenGEXImporter");
 	}
 
 

@@ -4,7 +4,7 @@
 /**
  * OpenGEXImporter module implementation (private)
  */
-class FSOpenGEXImporterModule : public IOpenGEXImporter
+class FOpenGEXImporterModule : public IOpenGEXImporter
 {
 public:
 	virtual void StartupModule() override
