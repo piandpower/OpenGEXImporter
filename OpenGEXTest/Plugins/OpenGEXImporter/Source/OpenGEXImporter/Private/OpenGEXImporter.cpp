@@ -129,14 +129,29 @@ namespace OpenGEX
 {
 	TSharedPtr<FOpenGEXImporter> FOpenGEXImporter::StaticInstance = nullptr;
 
+	struct FOpenGEXImporter::FDImplementation
+	{
+		ODDLParser::Context* ParserContext;
+
+		FDImplementation()
+			: ParserContext(nullptr)
+		{
+
+		}
+	};
+
 	FOpenGEXImporter::FOpenGEXImporter()
 	{
-
+		DImpl = new FDImplementation;
 	}
 
 	FOpenGEXImporter::~FOpenGEXImporter()
 	{
-
+		if (DImpl)
+		{
+			delete DImpl;
+			DImpl = nullptr;
+		}
 	}
 
 	FOpenGEXImporter* FOpenGEXImporter::GetInstance()
@@ -167,12 +182,91 @@ namespace OpenGEX
 
 		ODDLParser::OpenDDLParser OpenDDLParserObj(Buffer, Len);
 		bool bResult = OpenDDLParserObj.parse();
+		if (bResult)
+		{
+			DImpl->ParserContext = OpenDDLParserObj.getContext();
+			handleNodes(DImpl->ParserContext->m_root);
+		}
 
 		return false;
 	}
 
+	void FOpenGEXImporter::handleNodes(ODDLParser::DDLNode* Node)
+	{
+		if (Node == nullptr)
+			return;
+
+		ODDLParser::DDLNode::DllNodeList ChildNodes = Node->getChildNodeList();
+		for (ODDLParser::DDLNode::DllNodeList::iterator iter = ChildNodes.begin(); iter != ChildNodes.end(); ++iter)
+		{
+			Grammar::TokenType tokenType(Grammar::matchTokenType((*iter)->getType().c_str()));
+			switch (tokenType)
+			{
+			case Grammar::MetricToken:
+			{
+				handleMetricNode(*iter);
+			}
+			break;
+			}
+		}
+	}
+
+	static FMetricInfo::Type getMetricTypeFromText(ODDLParser::Text* key)
+	{
+		std::string keyStr(key->m_buffer, key->m_len);
+
+		if (keyStr == "distance")
+			return FMetricInfo::Distance;
+		else if (keyStr == "angle")
+			return FMetricInfo::Angle;
+		else if (keyStr == "time")
+			return FMetricInfo::Time;
+		else if (keyStr == "up")
+			return FMetricInfo::Up;
+
+		return FMetricInfo::Max;
+	}
+
+	void FOpenGEXImporter::handleMetricNode(ODDLParser::DDLNode* Node)
+	{
+		if (Node == nullptr || DImpl->ParserContext == nullptr)
+			return;
+
+		if (DImpl->ParserContext->m_root != Node->getParent())
+			return;
+
+		ODDLParser::Property* prop(Node->getProperties());
+		while (prop != nullptr)
+		{
+			if (!prop->m_key)
+				continue;
+
+			FMetricInfo::Type MetricType = getMetricTypeFromText(prop->m_key);
+			if (MetricType == FMetricInfo::Max)
+				continue;
+
+			if (MetricType == FMetricInfo::Up)
+			{
+				if (prop->m_value->m_type == ODDLParser::Value::ddl_string)
+				{
+					MetricInfoGroup.MetricInfos[(int)MetricType].StringValue = prop->m_value->getString();
+				}
+			}
+			else
+			{
+				if (prop->m_value->m_type == ODDLParser::Value::ddl_float)
+				{
+					MetricInfoGroup.MetricInfos[(int)MetricType].FloatValue = prop->m_value->getFloat();
+				}
+			}
+			MetricInfoGroup.MetricInfos[(int)MetricType].MetricType = MetricType;
+
+			prop = prop->m_next;
+		}
+	}
+
 	void FOpenGEXImporter::Clear()
 	{
-
+		MetricInfoGroup.Clear();
 	}
 }

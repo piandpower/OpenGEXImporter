@@ -25,10 +25,23 @@ namespace OpenGEX
 		int IntValue;
 
 		FMetricInfo()
-			: StringValue("")
-			, FloatValue(0.0f)
-			, IntValue(-1) {
-			// empty
+		{
+
+		}
+
+		Type MetricType;
+	};
+
+	struct FMetricInfoGroup
+	{
+		FMetricInfo MetricInfos[FMetricInfo::Max];
+
+		void Clear()
+		{
+			MetricInfos[FMetricInfo::Distance].FloatValue = 1.0f;
+			MetricInfos[FMetricInfo::Angle].FloatValue = 1.0f;
+			MetricInfos[FMetricInfo::Time].FloatValue = 1.0f;
+			MetricInfos[FMetricInfo::Up].StringValue = "z";
 		}
 	};
 
@@ -48,11 +61,25 @@ namespace OpenGEX
 
 		static FOpenGEXImporter* GetInstance();
 
+		const FMetricInfoGroup& GetMetricInfoGroup() const { return MetricInfoGroup; }
+
 		bool ImportFromBuffer(const uint8* Buffer, int Len);
 
 		void Clear();
 
 	protected:
+		void handleNodes(ODDLParser::DDLNode* Node);
+
+		void handleMetricNode(ODDLParser::DDLNode* Node);
+
+	protected:
+		FMetricInfoGroup MetricInfoGroup;
+
+	protected:
 		static TSharedPtr<FOpenGEXImporter> StaticInstance;
+
+		struct FDImplementation;
+
+		FDImplementation* DImpl;
 	};
 }
