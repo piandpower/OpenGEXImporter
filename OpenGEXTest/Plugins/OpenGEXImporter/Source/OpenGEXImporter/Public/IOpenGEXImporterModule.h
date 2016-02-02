@@ -4,21 +4,21 @@
 #include "ModuleManager.h"		// For inline LoadModuleChecked()
 
 /**
- * The public interface of the SpeedTreeImporter module
+ * The public interface of the OpenGEXImporter module
  */
-class IOpenGEXImporter : public IModuleInterface
+class IOpenGEXImporterModule : public IModuleInterface
 {
 
 public:
 
 	/**
-	 * Singleton-like access to IOpenGEXImporter
+	 * Singleton-like access to IOpenGEXImporterModule
 	 *
 	 * @return Returns OpenGEXImporter singleton instance, loading the module on demand if needed
 	 */
-	static inline IOpenGEXImporter& Get()
+	static inline IOpenGEXImporterModule& Get()
 	{
-		return FModuleManager::LoadModuleChecked<IOpenGEXImporter>("OpenGEXImporter");
+		return FModuleManager::LoadModuleChecked<IOpenGEXImporterModule>("OpenGEXImporter");
 	}
 
 	/**

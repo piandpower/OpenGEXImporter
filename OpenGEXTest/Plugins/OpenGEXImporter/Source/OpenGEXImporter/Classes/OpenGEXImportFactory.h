@@ -8,7 +8,7 @@
 #include "OpenGEXImportFactory.generated.h"
 
 UCLASS(hidecategories = Object)
-class UOpenGEXImportFactory : public UFactory
+class OPENGEXIMPORTER_API UOpenGEXImportFactory : public UFactory
 {
 	GENERATED_BODY()
 public:
