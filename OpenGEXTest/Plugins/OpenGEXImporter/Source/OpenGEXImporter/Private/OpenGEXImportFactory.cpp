@@ -62,3 +62,4 @@ bool UOpenGEXImportFactory::FactoryCanImport(const FString& Filename)
 	return false;
 }
 
+#undef LOCTEXT_NAMESPACE
