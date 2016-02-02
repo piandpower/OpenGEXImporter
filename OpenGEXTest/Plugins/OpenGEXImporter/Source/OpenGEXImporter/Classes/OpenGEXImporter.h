@@ -20,7 +20,6 @@ namespace OpenGEX
 			Max
 		};
 
-
 		std::string StringValue;
 		float FloatValue;
 		int IntValue;
@@ -33,6 +32,13 @@ namespace OpenGEX
 		}
 	};
 
+	struct FVertexContainer
+	{
+		TArray<FVector> Vertices;
+		TArray<FVector> Normals;
+		TArray<FVector> TextureCoords[32];
+	};
+
 	class OPENGEXIMPORTER_API FOpenGEXImporter
 	{
 	public:
@@ -42,7 +48,9 @@ namespace OpenGEX
 
 		static FOpenGEXImporter* GetInstance();
 
-		bool ImportFromBuffer(const unsigned char* Buffer, int Len);
+		bool ImportFromBuffer(const uint8* Buffer, int Len);
+
+		void Clear();
 
 	protected:
 		static TSharedPtr<FOpenGEXImporter> StaticInstance;
