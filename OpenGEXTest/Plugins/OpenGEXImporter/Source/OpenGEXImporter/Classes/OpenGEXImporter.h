@@ -38,7 +38,11 @@ namespace OpenGEX
 	public:
 		FOpenGEXImporter();
 
+		~FOpenGEXImporter();
+
 		static FOpenGEXImporter* GetInstance();
+
+		bool ImportFromBuffer(const unsigned char* Buffer, int Len);
 
 	protected:
 		static TSharedPtr<FOpenGEXImporter> StaticInstance;

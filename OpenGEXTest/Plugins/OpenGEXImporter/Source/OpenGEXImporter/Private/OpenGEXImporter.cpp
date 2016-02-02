@@ -12,6 +12,11 @@ namespace OpenGEX
 
 	}
 
+	FOpenGEXImporter::~FOpenGEXImporter()
+	{
+
+	}
+
 	FOpenGEXImporter* FOpenGEXImporter::GetInstance()
 	{
 		if (!StaticInstance.IsValid())
@@ -20,5 +25,26 @@ namespace OpenGEX
 		}
 
 		return StaticInstance.Get();
+	}
+
+	bool FOpenGEXImporter::ImportFromBuffer(const unsigned char* InBuffer, int Len)
+	{
+		const char* Buffer = nullptr;
+		if (Len >= 3)
+		{
+			if (InBuffer[0] == 0xEF && InBuffer[1] == 0xBB && InBuffer[2] == 0xBF)
+			{
+				Buffer = (char*)(InBuffer + 3);
+				Len -= 3;
+			}
+		}
+		else
+		{
+			Buffer = (char*)InBuffer;
+		}
+
+		ODDLParser::OpenDDLParser openDDLParser(Buffer, Len);
+
+		return false;
 	}
 }

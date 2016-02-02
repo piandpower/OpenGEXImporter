@@ -14,7 +14,7 @@ namespace UnrealBuildTool.Rules
 
 			if (bPlatformAllowed)
 			{
-				//Definitions.Add("OPENDDL_STATIC_LIBARY=1");
+				Definitions.Add("OPENDDL_STATIC_LIBARY=1");
 
 				string OpenDDLParserPath = ModulePath + "/openddl-parser/";
 				PublicIncludePaths.Add(OpenDDLParserPath + "include");
