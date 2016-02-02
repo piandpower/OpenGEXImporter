@@ -8,7 +8,8 @@
 UOpenGEXImportFactory::UOpenGEXImportFactory()
 	: Super(FObjectInitializer::Get())
 {
-
+	bEditorImport = true;
+	Formats.Add(TEXT("ogex;OpenGEX meshes and animations"));
 }
 
 FText UOpenGEXImportFactory::GetDisplayName() const
