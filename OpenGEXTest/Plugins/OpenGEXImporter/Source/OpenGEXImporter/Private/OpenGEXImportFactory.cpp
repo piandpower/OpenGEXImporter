@@ -1,5 +1,6 @@
 #include "OpenGEXImporterPrivatePCH.h"
 #include "OpenGEXImportFactory.h"
+#include "OpenGEXImporter.h"
 
 #include "Engine/StaticMesh.h"
 
@@ -48,6 +49,9 @@ UClass* UOpenGEXImportFactory::ResolveSupportedClass()
 
 UObject* UOpenGEXImportFactory::FactoryCreateBinary(UClass* InClass, UObject* InParent, FName InName, EObjectFlags Flags, UObject* Context, const TCHAR* Type, const uint8*& Buffer, const uint8* BufferEnd, FFeedbackContext* Warn, bool& bOutOperationCanceled)
 {
+	OpenGEX::FOpenGEXImporter* OpenGEXImporter = OpenGEX::FOpenGEXImporter::GetInstance();
+	OpenGEXImporter->ImportFromBuffer(Buffer, (int)(BufferEnd - Buffer));
+
 	return nullptr;
 }
 
