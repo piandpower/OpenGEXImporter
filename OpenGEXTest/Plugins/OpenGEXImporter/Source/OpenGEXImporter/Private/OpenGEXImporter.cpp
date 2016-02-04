@@ -3,6 +3,8 @@
 
 #include "openddlparser/OpenDDLParser.h"
 
+#include "OpenGEXParser.h"
+
 namespace Grammar {
 	static const std::string MetricType = "Metric";
 	static const std::string Metric_DistanceType = "distance";
@@ -179,14 +181,9 @@ namespace OpenGEX
 		{
 			Buffer = (char*)InBuffer;
 		}
-
-		ODDLParser::OpenDDLParser OpenDDLParserObj(Buffer, Len);
-		bool bResult = OpenDDLParserObj.parse();
-		if (bResult)
-		{
-			DImpl->ParserContext = OpenDDLParserObj.getContext();
-			handleNodes(DImpl->ParserContext->m_root);
-		}
+		
+		OGEXParser::OpenGEXParser OpenGEXParserObj;
+		bool bResult = OpenGEXParserObj.parse(Buffer, Len);
 
 		return false;
 	}

@@ -1,0 +1,1 @@
+run CopyToBinaries.bat when you first time run this plugin.
