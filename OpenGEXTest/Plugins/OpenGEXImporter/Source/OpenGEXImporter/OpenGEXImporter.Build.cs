@@ -45,8 +45,6 @@ namespace UnrealBuildTool.Rules
 				}
 				);
 				
-			PrivateDependencyModuleNames.Add("OpenDDLParser");
-
             PrivateDependencyModuleNames.Add("OpenGEXParser");
 		}
 	}

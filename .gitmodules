@@ -1,6 +1,3 @@
-[submodule "OpenGEXTest/Plugins/OpenGEXImporter/Source/Thirdparty/OpenDDLParser/openddl-parser"]
-	path = OpenGEXTest/Plugins/OpenGEXImporter/Source/Thirdparty/OpenDDLParser/openddl-parser
-	url = https://github.com/henrya2/openddl-parser.git
 [submodule "OpenGEXTest/Plugins/OpenGEXImporter/Source/Thirdparty/OpenGEXParser/opengex-parser"]
 	path = OpenGEXTest/Plugins/OpenGEXImporter/Source/Thirdparty/OpenGEXParser/opengex-parser
 	url = ../opengex-parser.git
