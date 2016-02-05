@@ -23,7 +23,7 @@ namespace UnrealBuildTool.Rules
 				{
 					if (WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2015)
 					{
-						if (Target.Configuration == UnrealTargetConfiguration.Debug && BuildConfiguration.bDebugBuildsActuallyUseDebugCRT)
+						if (Target.Configuration == UnrealTargetConfiguration.Debug)
 						{
 							PublicLibraryPaths.Add(OpenGEXParserPath + "lib/x64/VS2015/Debug/");
 							
@@ -31,10 +31,14 @@ namespace UnrealBuildTool.Rules
 						}
 						else
 						{
-							PublicLibraryPaths.Add(OpenGEXParserPath + "lib/x64/VS2015/Release/");
+							//PublicLibraryPaths.Add(OpenGEXParserPath + "lib/x64/VS2015/Release/");
 
-							PublicAdditionalLibraries.Add("opengex-parser_Release.lib");
-						}
+							//PublicAdditionalLibraries.Add("opengex-parser_Release.lib");
+
+                            PublicLibraryPaths.Add(OpenGEXParserPath + "lib/x64/VS2015/Debug/");
+
+                            PublicAdditionalLibraries.Add("opengex-parser_Debug.lib");
+                        }
 					}
 				}
 			}

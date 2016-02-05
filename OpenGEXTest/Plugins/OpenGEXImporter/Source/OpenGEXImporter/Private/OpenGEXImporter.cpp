@@ -42,13 +42,10 @@ namespace OpenGEX
 	bool FOpenGEXImporter::ImportFromBuffer(const uint8* InBuffer, int Len)
 	{
 		const char* Buffer = nullptr;
-		if (Len >= 3)
+		if (Len >= 3 &&(InBuffer[0] == 0xEF && InBuffer[1] == 0xBB && InBuffer[2] == 0xBF))
 		{
-			if (InBuffer[0] == 0xEF && InBuffer[1] == 0xBB && InBuffer[2] == 0xBF)
-			{
-				Buffer = (char*)(InBuffer + 3);
-				Len -= 3;
-			}
+			Buffer = (char*)(InBuffer + 3);
+			Len -= 3;
 		}
 		else
 		{
