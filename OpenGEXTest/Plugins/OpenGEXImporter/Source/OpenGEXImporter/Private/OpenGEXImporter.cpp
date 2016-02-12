@@ -9,9 +9,17 @@ namespace OpenGEX
 
 	struct FOpenGEXImporter::FDImplementation
 	{
+		OGEXParser::OpenGEXParser* MyOpenGEXParser;
+
 		FDImplementation()
 		{
+			MyOpenGEXParser = nullptr;
+		}
 
+		~FDImplementation()
+		{
+			delete MyOpenGEXParser;
+			MyOpenGEXParser = nullptr;
 		}
 	};
 
@@ -51,15 +59,14 @@ namespace OpenGEX
 		{
 			Buffer = (char*)InBuffer;
 		}
-		
-		OGEXParser::OpenGEXParser OpenGEXParserObj;
-		bool bResult = OpenGEXParserObj.parse(Buffer, Len);
+
+		bool bResult = DImpl->MyOpenGEXParser->parse(Buffer, Len);
 
 		return false;
 	}
 
 	void FOpenGEXImporter::Clear()
 	{
-
+		DImpl->MyOpenGEXParser->clear();
 	}
 }
