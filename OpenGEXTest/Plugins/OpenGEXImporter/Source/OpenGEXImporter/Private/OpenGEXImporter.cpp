@@ -13,7 +13,7 @@ namespace OpenGEX
 
 		FDImplementation()
 		{
-			MyOpenGEXParser = nullptr;
+			MyOpenGEXParser = new OGEXParser::OpenGEXParser();
 		}
 
 		~FDImplementation()

@@ -49,10 +49,16 @@ UClass* UOpenGEXImportFactory::ResolveSupportedClass()
 
 UObject* UOpenGEXImportFactory::FactoryCreateBinary(UClass* InClass, UObject* InParent, FName InName, EObjectFlags Flags, UObject* Context, const TCHAR* Type, const uint8*& Buffer, const uint8* BufferEnd, FFeedbackContext* Warn, bool& bOutOperationCanceled)
 {
+	FEditorDelegates::OnAssetPreImport.Broadcast(this, InClass, InParent, InName, Type);
+
 	OpenGEX::FOpenGEXImporter* OpenGEXImporter = OpenGEX::FOpenGEXImporter::GetInstance();
 	OpenGEXImporter->ImportFromBuffer(Buffer, (int)(BufferEnd - Buffer));
 
-	return nullptr;
+	UStaticMesh* StaticMesh = nullptr;
+
+	FEditorDelegates::OnAssetPostImport.Broadcast(this, StaticMesh);
+
+	return StaticMesh;
 }
 
 bool UOpenGEXImportFactory::FactoryCanImport(const FString& Filename)

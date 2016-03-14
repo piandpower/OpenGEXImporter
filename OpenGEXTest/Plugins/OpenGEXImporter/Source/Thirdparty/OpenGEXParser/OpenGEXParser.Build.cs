@@ -25,19 +25,19 @@ namespace UnrealBuildTool.Rules
 					{
 						if (Target.Configuration == UnrealTargetConfiguration.Debug)
 						{
-							PublicLibraryPaths.Add(OpenGEXParserPath + "lib/x64/VS2015/Debug/");
-							
-							PublicAdditionalLibraries.Add("opengex-parser_Debug.lib");
-						}
-						else
-						{
-							//PublicLibraryPaths.Add(OpenGEXParserPath + "lib/x64/VS2015/Release/");
-
-							//PublicAdditionalLibraries.Add("opengex-parser_Release.lib");
-
                             PublicLibraryPaths.Add(OpenGEXParserPath + "lib/x64/VS2015/Debug/");
 
                             PublicAdditionalLibraries.Add("opengex-parser_Debug.lib");
+
+                            PublicDelayLoadDLLs.Add("opengex-parser_Debug.dll");
+                        }
+						else
+						{
+                            PublicLibraryPaths.Add(OpenGEXParserPath + "lib/x64/VS2015/Release/");
+
+                            PublicAdditionalLibraries.Add("opengex-parser_Release.lib");
+
+                            PublicDelayLoadDLLs.Add("opengex-parser_Release.dll");
                         }
 					}
 				}
